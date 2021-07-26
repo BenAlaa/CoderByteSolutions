@@ -1,0 +1,24 @@
+<template>
+  <div id="app">
+    <section id="mainArea">
+      button count: <span>{{buttonCount}}</span>
+      <button id="mainButton" @click="incrementCounter">Increase</button>
+    </section>
+  </div>
+</template>
+
+<script>
+  export default {
+    name: "App",
+    data() {
+      return {
+        buttonCount: 0
+      };
+    },
+    methods: {
+      incrementCounter: function() {
+        this.buttonCount += 1;
+      }
+    }
+  };
+</script>
