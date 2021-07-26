@@ -21,24 +21,6 @@ function OverlappingRectangles(strArr) {
   const overLapY = calculateOverlappingBetweenTwoSids(minY1, maxY1, minY2, maxY2);
   const overlappedArea = overLapX * overLapY;
   const overlappedAreaFitsArea1 = overlappedArea? Math.floor(area1/ overlappedArea) : 0;
-  console.log({
-    pointsArr,
-    rect1,
-    rect2,
-    minX1,
-    maxX1,
-    minY1,
-    maxY1,
-    minX2,
-    maxX2,
-    minY2,
-    maxY2,
-    area1,
-    overLapX,
-    overLapY,
-    overlappedArea,
-    overlappedAreaFitsArea1
-  });
   // code goes here  
   return overlappedAreaFitsArea1; 
 
