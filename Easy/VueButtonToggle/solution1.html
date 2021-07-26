@@ -1,0 +1,27 @@
+<template>
+  <div id="app">
+    <button @click="toggleState">{{ buttonText }}</button>
+  </div>
+</template>
+
+<script>
+  export default {
+    name: "App",
+    data() {
+      return {
+        items: null,
+        buttonToggled: false
+      };
+    },
+    computed: {
+      buttonText() {
+        return this.buttonToggled ? "ON" : "OFF";
+      }
+    },
+    methods: {
+      toggleState() {
+        this.buttonToggled = !this.buttonToggled;
+      }
+    }
+  };
+</script>
