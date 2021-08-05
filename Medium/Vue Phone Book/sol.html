@@ -1,0 +1,60 @@
+<template>
+  <div id="app">
+    <strong>Add a new contact:</strong><br/>
+    <div>
+      <label>First Name: <input v-model="input.firstName" type="text" class="userFirstname"/></label> <br />
+      <label>Last Name: <input v-model="input.lastName" type="text" class="userLastname"/></label> <br />
+      <label>Phone: <input v-model="input.phone" type="number" class="userPhone"/></label> <br /><br />
+      <button class="submitButton" @click.prevent="onSubmit">Add New Contact</button><br />
+    </div>
+    <table id="phoneBookItems" class="informationTable">
+      <tr id="phoneBookHeaders">
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Phone</th>
+      </tr>
+      <tr class="phoneBookTableRows" v-for="contact in sortedContacts">
+        <td>{{contact.firstName}}</td>
+        <td>{{contact.lastName}}</td>
+        <td>{{contact.phone}}</td>
+      </tr>
+    </table>
+  </div>
+</template>
+
+<script>
+  export default {
+    name: "App",
+    data() {
+      return {
+        contacts: [],
+        input: {
+          firstName: "Coder",
+          lastName:  "Byte",
+          phone:     8885559999
+        }
+      }
+    },
+    computed: {
+      sortedContacts() {
+        return this.contacts.sort(this.compareLastName)
+      }
+    },
+    methods: {
+      onSubmit: function() {
+        this.contacts.push({
+          firstName: this.input.firstName,
+          lastName:  this.input.lastName,
+          phone:     this.input.phone
+        });
+      },
+      compareLastName: function(a, b) {
+        if (a.lastName < b.lastName)
+          return -1;
+        if (a.lastName > b.lastName)
+         return 1;
+       return 0;
+      }
+    }
+  };
+</script>

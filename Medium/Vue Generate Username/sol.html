@@ -1,0 +1,27 @@
+<template>
+  <div id="app">
+    <input v-model="firstname" type="text" value="firstname" id="firstname">
+    <input v-model="lastname" type="text" value="lastname" id="lastname">
+    <button v-on:click="generateUserName()">Generate</button>
+    <span id="output">{{ username }}</span>
+  </div>
+</template>
+
+<script>
+  export default {
+    name: "App",
+    data() {
+      return {
+        firstname : 'Coder',
+        lastname : 'Byte',
+        username : ''
+      };
+    },
+    methods: {
+      generateUserName(){
+        this.username = this.firstname.toLowerCase() + "_" + this.lastname.toLowerCase() + "_" + Math.floor((Math.random() * 10) + 1);
+
+      }
+    }
+  };
+</script>
