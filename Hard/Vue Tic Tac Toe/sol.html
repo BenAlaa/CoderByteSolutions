@@ -1,0 +1,105 @@
+<template>
+  <div id="app">
+    <div class="status" v-if="!winner && moves < 9">{{ status }} {{ nextPlayer }}</div>
+    <h2 v-if="winner">The winner is: {{winner}}</h2>
+    <button @click="onReset()">Reset</button>
+    <template  v-for="(n, i) in 3">
+      <div class="row">
+        <button v-for="(n, j) in 3" @click="onMove(i,j)" class="square" style="">{{board[i][j]}}</button>
+        </div>
+    </template>
+  </div>
+</template>
+
+<script>
+  export default {
+    name: "App", 
+    data() {
+      return {
+        nextPlayer: "x",
+        status: 'Next player:',
+        moves: 0,
+        winner: '',
+        board: [
+          ['','',''],
+          ['','',''],
+          ['','','']
+        ],
+      };
+    },
+
+    methods: {
+      onMove(x,y) {
+        // In case cell is already filled or
+        // there is a winner, do nothing.
+        if(this.board[x][y] !== '' || this.winner){
+          return;
+        }
+
+        // Set cell to nextplayer value
+        this.board[x][y] = this.nextPlayer;
+
+        // Check if there is a winner
+        if(this.onWin(x,y,this.nextPlayer)){
+          this.winner = this.nextPlayer;
+          return;
+        };
+
+        // In Case there is not winner, keep counting moves and update next player
+        this.moves++;
+        this.nextPlayer = this.nextPlayer === 'x' ? 'o' : 'x';
+
+        this.$forceUpdate();
+      },
+
+      // On Reset, re-asign data to original state
+      onReset() {
+        Object.assign(this.$data, this.$options.data.call(this));
+      },
+
+      onWin(x,y,player){
+
+        // Check Vertical, Columns
+        for (let i = 0; i < 3; i++){
+          if(this.board[0][i] === player && this.board[1][i] === player && this.board[2][i] === player){
+            return true;
+          }
+        }
+
+        // Check Horizontal, Rows
+        for (let i = 0; i < 3; i++){
+          if(this.board[i][0] === player && this.board[i][1] === player && this.board[i][2] === player){
+            return true;
+          }
+        }
+
+        // Check Diagonals
+        // from [left, top] to [right,bottom]
+        if(this.board[0][0] === player && this.board[1][1] === player && this.board[2][2] === player){
+          return true;
+        }
+
+        // from [left, bottom] to [right,top]
+        if(this.board[2][0] === player && this.board[1][1] === player && this.board[0][2] === player){
+          return true;
+        }
+
+        // No winner
+        return false;
+      }
+    }
+  }; </script>
+    
+
+
+<style>
+.row{
+  display: flex;
+}
+.square{
+  text-transform: uppercase;
+
+  width:40px;
+  height:40px;
+}
+</style>
